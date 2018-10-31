@@ -1,25 +1,15 @@
 <template>
   <div id="app">
-    <Xheader />
-    <div style="margin-top: 84px">
-      <Xlist />
-      <Xlist />
-      <Xlist />
-      <Xlist />
-      <Xlist />
-    </div>
+     <!-- 路由匹配到的组件将渲染在这里 -->
+  <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Xheader from "./components/Xheader.vue";
-import Xlist from "./components/Xlist.vue";
 
 export default {
   name: "app",
   components: {
-    Xheader,
-    Xlist
   }
 };
 </script>
