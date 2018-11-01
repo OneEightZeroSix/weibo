@@ -71,17 +71,17 @@ export default {
   data() {
     return {
       // 切换box
-      isShowXbox:false,
+      isShowXbox: false,
       // 选项卡
       navs: [
         {
           title: "热门",
-          path: "",
+          path: "hot",
           isSelect: true
         },
         {
           title: "新鲜事",
-          path: "",
+          path: "fresh",
           isSelect: false
         },
         {
@@ -138,6 +138,8 @@ export default {
     // 选项卡
     selectNav(nav) {
       this.nav = nav;
+      //this.$router.push(`${this.navs[nav].path}`);
+      this.$router.push({ name: this.navs[nav].path });
     },
     // 加载数据
     loadMore() {
@@ -156,11 +158,21 @@ export default {
     },
     //发布内容，如果没登录的话，跳转到登录页面
     publish() {
-      this.$router.push("sign");
+      //this.$router.push("sign");
+      this.$router.push({ name: "sign" });
     },
     // 切换Xbox
-    toggleXbox(){
-      this.isShowXbox = !this.isShowXbox
+    toggleXbox() {
+      this.$store.dispatch("setTitle","微信");
+      this.isShowXbox = !this.isShowXbox;
+    }
+  },
+  computed: {
+    title() {
+      return this.$store.getters.getTitle;
+    },
+    author(){
+      return this.$store.getters.getAuthor;
     }
   },
   watch: {},

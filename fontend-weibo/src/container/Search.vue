@@ -1,8 +1,8 @@
 <template>
-<div>
-    <Xheader status="search" />
-    <XsearchCard />
-</div>
+  <div>
+      <Xheader status="search" />
+      <XsearchCard />
+  </div>
 </template>
 <script>
 import Xheader from "../components/Xheader.vue";
@@ -15,7 +15,6 @@ export default {
 };
 </script>
 <style scoped>
-
 </style>
 
 

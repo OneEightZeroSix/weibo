@@ -124,7 +124,8 @@ export default {
   methods: {
     toDetailPage() {
       // 跳转详情页
-      this.$router.push("detail");
+      //this.$router.push("/detail");
+      this.$router.push({ name: "comment"});
     }
   }
 };
