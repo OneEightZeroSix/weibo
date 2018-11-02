@@ -66,6 +66,8 @@
 import axios from "axios";
 //import $ from 'jquery';
 import Xbox from "./Xbox.vue";
+import setChannel from "../libs/setChannel.js";
+//import cookie from "../libs/cookie.js";
 export default {
   props: ["status"],
   data() {
@@ -73,73 +75,16 @@ export default {
       // 切换box
       isShowXbox: false,
       // 选项卡
-      navs: [
-        {
-          title: "热门",
-          path: "hot",
-          isSelect: true
-        },
-        {
-          title: "新鲜事",
-          path: "fresh",
-          isSelect: false
-        },
-        {
-          title: "搞笑",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "情感",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "明星",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "社会",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "数码",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "体育",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "汽车",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "电影",
-          path: "",
-          isSelect: false
-        },
-        {
-          title: "游戏",
-          path: "",
-          isSelect: false
-        }
-      ],
-      nav: 0,
       news: []
     };
   },
   methods: {
     // 选项卡
     selectNav(nav) {
-      this.nav = nav;
+      //this.nav = nav;
       //this.$router.push(`${this.navs[nav].path}`);
       this.$router.push({ name: this.navs[nav].path });
+      this.$store.dispatch("setNav", nav);
     },
     // 加载数据
     loadMore() {
@@ -163,22 +108,38 @@ export default {
     },
     // 切换Xbox
     toggleXbox() {
-      this.$store.dispatch("setTitle","微信");
+      this.$store.dispatch("setTitle", "微信");
       this.isShowXbox = !this.isShowXbox;
-    }
+    },
+    setChannel
   },
   computed: {
     title() {
       return this.$store.getters.getTitle;
     },
-    author(){
+    author() {
       return this.$store.getters.getAuthor;
+    },
+    // 往仓库获取频道信息
+    navs() {
+      return this.$store.getters.getNavs;
+    },
+    nav: {
+      // getter
+      get: function() {
+        return this.$store.getters.getNav;
+      },
+      // setter
+      set: function(newValue) {
+        this.$store.state.nav = newValue;
+      }
     }
   },
   watch: {},
   mounted() {
     console.log(this.status);
     this.loadMore();
+    this.setChannel("nav");
   },
   components: {
     Xbox
@@ -191,7 +152,6 @@ export default {
 
 /*search*/
 
-@charset "UTF-8";
 .ntop-nav {
   height: 44px;
   background-color: #fff;

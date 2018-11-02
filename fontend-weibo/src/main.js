@@ -12,13 +12,14 @@ Vue.use(Vuex)
 // 1. 定义 (路由) 组件。
 // 可以从其他文件 import 进来
 // 一级路由
-import Home from "./container/Home.vue";
-import Search from "./container/Search.vue";
-import Sign from "./container/Sign.vue";
-import Detail from "./container/Detail.vue";
+import Home from "./containers/Home.vue";
+import Search from "./containers/Search.vue";
+import Sign from "./containers/Sign.vue";
+import Detail from "./containers/Detail.vue";
+
 // 二级路由
-import HomeChannel from "./container/HomeChannel.vue";
-import DetailChannel from "./container/DetailChannel.vue";
+import HomeChannel from "./containers/HomeChannel.vue";
+import DetailChannel from "./containers/DetailChannel.vue";
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -106,7 +107,74 @@ const store = new Vuex.Store({
   state: {
     title: "微博",
     author: "lemon",
-    description: "这是一个最完美新浪微博客户端"
+    description: "这是一个最完美新浪微博客户端",
+    gallery: {
+      isShowGallery: false,
+      galleryImg: [], //图片地址
+      index: 0
+    },
+    navs: [{
+        title: "热门",
+        path: "hot",
+        isSelect: true
+      },
+      {
+        title: "新鲜事",
+        path: "fresh",
+        isSelect: false
+      },
+      {
+        title: "搞笑",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "情感",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "明星",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "社会",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "数码",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "体育",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "汽车",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "电影",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "游戏",
+        path: "",
+        isSelect: false
+      },
+      {
+        title: "老妖",
+        path: "",
+        isSelect: false
+      },
+    ],
+    nav: 0
   },
   // 修改状态
   mutations: {
@@ -115,15 +183,28 @@ const store = new Vuex.Store({
     },
     editAuthor(state, data) {
       state.author = data
+    },
+    editGallery(state, data) {
+      state.gallery = data
+    },
+    editNav(state, data) {
+      state.nav = data
     }
   },
+  // actions  一般配合 事件@xxx 触发
   actions: {
     setTitle(context, data) {
       context.commit('editTitle', data);
       context.commit('editAuthor', data)
-    }
+    },
+    setGallery(context, data) {
+      context.commit('editGallery', data);
+    },
+    setNav(context, data) {
+      context.commit('editNav', data);
+    },
   },
-  // 组件从store(中介)手上拿数据
+  // 组件从store(中介)手上拿数据  配个 computed
   getters: {
     getTitle: state => {
       return state.title
@@ -133,6 +214,15 @@ const store = new Vuex.Store({
     },
     getAll: state => {
       return state
+    },
+    getGallery: state => {
+      return state.gallery
+    },
+    getNavs: state => {
+      return state.navs
+    },
+    getNav: state => {
+      return state.nav
     }
   }
 })

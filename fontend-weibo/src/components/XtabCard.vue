@@ -683,3 +683,6 @@ export default {
   props: ["channel"]
 };
 </script>
+<style scoped>
+</style>
+

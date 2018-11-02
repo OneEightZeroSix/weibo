@@ -1,15 +1,12 @@
 <template>
-    <div style="margin-top: 84px">
+    <div style="margin-top: 84px" ref="list">
         <!-- <p v-text="navs[channel]"></p> -->
-        <Xlist />
-        <Xlist />
-        <Xlist />
-        <Xlist />
-        <Xlist />
+        <Xlist v-for="n in navs" />
     </div>
 </template>
 <script>
 import Xlist from "../components/Xlist.vue";
+import setChannel from "../libs/setChannel.js";
 export default {
   data() {
     return {
@@ -77,27 +74,36 @@ export default {
     Xlist
   },
   methods: {
-    setChannel() {
-      //判断当前是什么路由
-      var route = this.$router.history.current.path;
-      switch (route) {
-        case "/home/hot":
-          this.channel = 0;
-          break;
-        case "/home/fresh":
-          this.channel = 1;
-          break;
-        default:
-          this.channel = 0;
-      }
+    setChannel,
+    loadMore() {
+      var self = this;
+      window.onscroll = function() {
+        console.log(window.scrollY + 484);
+        console.log(self.$refs.list.scrollHeight);
+        // var scrollHeight = $(document).height(); //当前页面的总高度
+        // var windowHeight = $(this).height(); //当前可视的页面高度
+        if (window.scrollY + 484 >= self.$refs.list.scrollHeight) {
+          //距离顶部+当前高度 >=文档总高度 即代表滑动到底部
+          console.log("上拉加载，要在这调用啥方法？");
+          self.navs.push({
+            title: "游戏",
+            path: "",
+            isSelect: false
+          });
+        }
+      };
     }
   },
   mounted() {
-    this.setChannel();
+    this.setChannel("channel");
+    this.loadMore();
+    console.log(this.$refs.list.scrollHeight);
+    console.log(this.$refs.list.scrollHeight);
   },
   watch: {
     $route() {
-      this.setChannel();
+      this.setChannel("channel");
+      this.loadMore();
     }
   }
 };

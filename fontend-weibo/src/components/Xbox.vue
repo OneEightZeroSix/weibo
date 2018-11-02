@@ -1,17 +1,46 @@
 <template>
     <div class="lite-nav-sublist m-col-4">
-        <ul class="m-auto-list">
-            <li class="m-auto-box"><span class="m-text-cut">热门</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">新鲜事</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">搞笑</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">情感</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">明星</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">社会</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">数码</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">体育</span></li>
-            <li class="m-auto-box cur"><span class="m-text-cut">汽车</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">电影</span></li>
-            <li class="m-auto-box"><span class="m-text-cut">游戏</span></li>
+        <ul class="m-auto-list" :nav="nav">
+            <li @click="selectNav(index)" :class="{
+                cur:nav===index
+            }" class="m-auto-box" :key="index" v-for="(n,index) in navs"><span class="m-text-cut" v-text="n.title"></span></li>
         </ul>
     </div>
 </template>
+<script>
+import setChannel from "../libs/setChannel.js";
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    navs() {
+      return this.$store.getters.getNavs;
+    },
+    nav: {
+      // getter
+      get: function() {
+        return this.$store.getters.getNav;
+      },
+      // setter
+      set: function(newValue) {
+        this.$store.state.nav = newValue;
+      }
+    }
+  },
+  methods: {
+    // 选项卡
+    selectNav(nav) {
+      //this.nav = nav;
+      //this.$router.push(`${this.navs[nav].path}`);
+      this.$router.push({ name: this.navs[nav].path });
+      this.$store.dispatch("setNav", nav);
+    },
+    setChannel
+  },
+  mounted() {
+    this.setChannel("nav");
+  }
+};
+</script>
+
