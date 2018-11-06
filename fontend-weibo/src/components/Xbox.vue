@@ -10,6 +10,7 @@
 <script>
 import setChannel from "../libs/setChannel.js";
 export default {
+  props: ["slideWrap"],
   data() {
     return {};
   },
@@ -31,10 +32,9 @@ export default {
   methods: {
     // 选项卡
     selectNav(nav) {
-      //this.nav = nav;
-      //this.$router.push(`${this.navs[nav].path}`);
       this.$router.push({ name: this.navs[nav].path });
       this.$store.dispatch("setNav", nav);
+      this.slideWrap.scrollTo(this.navs[nav].slide, 0);
     },
     setChannel
   },

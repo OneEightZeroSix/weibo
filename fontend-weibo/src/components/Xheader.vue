@@ -18,21 +18,18 @@
             <div class="m-box">
                 <div class="m-box-col inner-box">
                     <div class="scroll-box slide-container">
-                        <div class="slide-wrap">
+                        <div class="slide-wrap" ref="slideWrap">
                             <ul class="nav_item">
                                 <li @click="selectNav(index)" :key="index" v-for="(n,index) in navs" class="item_li" :class="{
                                     cur:nav===index
                                 }">
-                                    <span>
-                                        {{n.title}}
-                                        <em></em>
+                                    <span v-html="`${n.title}<em></em>`">
                                     </span>
-
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <Xbox v-show="isShowXbox" />
+                    <Xbox :slideWrap="$refs.slideWrap" v-show="isShowXbox" />
                 </div>
                 <div @click="toggleXbox" class="nav-plus m-box-center m-box-center-a"><i class="m-font m-font-arrow-down"></i></div>
             </div>
@@ -63,52 +60,35 @@
     
 </template>
 <script>
-import axios from "axios";
 //import $ from 'jquery';
 import Xbox from "./Xbox.vue";
 import setChannel from "../libs/setChannel.js";
-//import cookie from "../libs/cookie.js";
 export default {
   props: ["status"],
   data() {
     return {
       // 切换box
-      isShowXbox: false,
-      // 选项卡
-      news: []
+      isShowXbox: false
     };
   },
   methods: {
     // 选项卡
     selectNav(nav) {
-      //this.nav = nav;
-      //this.$router.push(`${this.navs[nav].path}`);
       this.$router.push({ name: this.navs[nav].path });
       this.$store.dispatch("setNav", nav);
-    },
-    // 加载数据
-    loadMore() {
-      axios
-        .get("http://localhost:12345/api/getIndex")
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+
+      this.$refs.slideWrap.scrollTo(this.navs[nav].slide, 0);
     },
     // 返回
     back() {
       this.$router.history.go(-1);
     },
-    //发布内容，如果没登录的话，跳转到登录页面
+    // 发布内容，如果没登录的话，跳转到登录页面
     publish() {
-      //this.$router.push("sign");
       this.$router.push({ name: "sign" });
     },
     // 切换Xbox
     toggleXbox() {
-      this.$store.dispatch("setTitle", "微信");
       this.isShowXbox = !this.isShowXbox;
     },
     setChannel
@@ -137,8 +117,7 @@ export default {
   },
   watch: {},
   mounted() {
-    console.log(this.status);
-    this.loadMore();
+    this.$refs.slideWrap.scrollTo(this.navs[this.nav].slide, 0);
     this.setChannel("nav");
   },
   components: {

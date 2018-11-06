@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-
-Vue.config.productionTip = false
+import axios from "axios";
+Vue.prototype.$axios = axios;
+Vue.config.productionTip = false;
 // vue-router
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 // vuex
-import Vuex from 'vuex'
+import Vuex from 'vuex';
 Vue.use(Vuex)
 
 // 1. 定义 (路由) 组件。
@@ -32,18 +33,59 @@ const routes = [{
     component: Home,
     name: "home",
     children: [{
-        // 当 /user/:id/profile 匹配成功，
-        // UserProfile 会被渲染在 User 的 <router-view> 中
         path: 'hot',
         component: HomeChannel,
         name: "hot",
       },
       {
-        // 当 /user/:id/posts 匹配成功
-        // UserPosts 会被渲染在 User 的 <router-view> 中
         path: 'fresh',
         component: HomeChannel,
         name: "fresh",
+      },
+      {
+        path: 'fun',
+        component: HomeChannel,
+        name: "fun",
+      },
+      {
+        path: 'emotion',
+        component: HomeChannel,
+        name: "emotion",
+      },
+      {
+        path: 'star',
+        component: HomeChannel,
+        name: "star",
+      },
+      {
+        path: 'society',
+        component: HomeChannel,
+        name: "society",
+      },
+      {
+        path: 'digit',
+        component: HomeChannel,
+        name: "digit",
+      },
+      {
+        path: 'sports',
+        component: HomeChannel,
+        name: "sports",
+      },
+      {
+        path: 'car',
+        component: HomeChannel,
+        name: "car",
+      },
+      {
+        path: 'film',
+        component: HomeChannel,
+        name: "film",
+      },
+      {
+        path: 'game',
+        component: HomeChannel,
+        name: "game",
       }
     ]
   },
@@ -62,22 +104,16 @@ const routes = [{
     component: Detail,
     name: "detail",
     children: [{
-        // 当 /user/:id/profile 匹配成功，
-        // UserProfile 会被渲染在 User 的 <router-view> 中
         path: 'repost',
         component: DetailChannel,
         name: "repost",
       },
       {
-        // 当 /user/:id/posts 匹配成功
-        // UserPosts 会被渲染在 User 的 <router-view> 中
         path: 'comment',
         component: DetailChannel,
         name: "comment",
       },
       {
-        // 当 /user/:id/posts 匹配成功
-        // UserPosts 会被渲染在 User 的 <router-view> 中
         path: 'like',
         component: DetailChannel,
         name: "like",
@@ -106,8 +142,8 @@ const store = new Vuex.Store({
   // 状态
   state: {
     title: "微博",
-    author: "lemon",
-    description: "这是一个最完美新浪微博客户端",
+    author: "wscats",
+    description: "这是一个Vue写的新浪微博网页端",
     gallery: {
       isShowGallery: false,
       galleryImg: [], //图片地址
@@ -116,63 +152,75 @@ const store = new Vuex.Store({
     navs: [{
         title: "热门",
         path: "hot",
-        isSelect: true
+        slide: 0,
+        containerid: "102803"
       },
       {
         title: "新鲜事",
         path: "fresh",
-        isSelect: false
+        slide: 0,
+        containerid: "102803_ctg1_7978_-_ctg1_7978"
       },
       {
         title: "搞笑",
-        path: "",
-        isSelect: false
+        path: "fun",
+        slide: 0,
+        containerid: "102803_ctg1_4388_-_ctg1_4388"
       },
       {
         title: "情感",
-        path: "",
-        isSelect: false
+        path: "emotion",
+        slide: 64,
+        containerid: "102803_ctg1_1988_-_ctg1_1988"
       },
       {
         title: "明星",
-        path: "",
-        isSelect: false
+        path: "star",
+        slide: 120,
+        containerid: "102803_ctg1_4288_-_ctg1_4288"
       },
       {
         title: "社会",
-        path: "",
-        isSelect: false
+        path: "society",
+        slide: 176,
+        containerid: "102803_ctg1_4188_-_ctg1_4188"
       },
       {
         title: "数码",
-        path: "",
-        isSelect: false
+        path: "digit",
+        slide: 232,
+        containerid: "102803_ctg1_5088_-_ctg1_5088"
       },
       {
         title: "体育",
-        path: "",
-        isSelect: false
+        path: "sports",
+        slide: 288,
+        containerid: "102803_ctg1_1388_-_ctg1_1388"
       },
       {
         title: "汽车",
-        path: "",
-        isSelect: false
+        path: "car",
+        slide: 344,
+        containerid: "102803_ctg1_5188_-_ctg1_5188"
       },
       {
         title: "电影",
-        path: "",
-        isSelect: false
+        path: "film",
+        slide: 400,
+        containerid: "102803_ctg1_3288_-_ctg1_3288"
       },
       {
         title: "游戏",
-        path: "",
-        isSelect: false
+        path: "game",
+        slide: 456,
+        containerid: "102803_ctg1_4888_-_ctg1_4888"
       },
-      {
-        title: "老妖",
-        path: "",
-        isSelect: false
-      },
+      // {
+      //   title: "wscats",
+      //   path: "",
+      //   slide: 512,
+      //   containerid:""
+      // },
     ],
     nav: 0
   },

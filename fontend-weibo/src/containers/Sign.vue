@@ -469,7 +469,7 @@ a {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
-  display: box;
+  /* display: box; */
   display: flex;
   width: 100%;
   margin: 15px 0;
