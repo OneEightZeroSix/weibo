@@ -9,8 +9,6 @@
                                                         <i class="m-icon m-icon-goldv-static"></i></a></div>
                                         <div class="m-box-dir m-box-col m-box-center">
                                                 <div class="m-text-box"><a href="/profile/1347712670" class="">
-                                                                <!-- <h3 class="m-text-cut" v-html="`${content.card_group[0].mblog.user.screen_name}<i class='m-icon m-icon-vipl4'></i>`">马未都
-                                                                </h3> -->
                                                                 <h3 class="m-text-cut" v-html="`${content.mblog.user.screen_name}<i class='m-icon m-icon-vipl4'></i>`">马未都
                                                                 </h3>
                                                         </a>
@@ -33,7 +31,7 @@
                                                 <div>
                                                         <div  class="weibo-media-wraps weibo-media f-media media-b">
                                                                 <ul  class="m-auto-list">
-                                                                        <li v-for="(p,index) in content.mblog.pics" :key="index" class="m-auto-box3">
+                                                                        <li @click="" v-for="(p,index) in content.mblog.pics" :key="index" class="m-auto-box3">
                                                                                 <div  class="m-img-box m-imghold-4-3">
                                                                                         <img  :src="p.url"
                                                                                                 class="f-bg-img">
@@ -372,7 +370,6 @@ body,
   width: 100%;
   height: 100%;
 }
-
 
 /* @font-face {
   font-family: "videofont";

@@ -60,7 +60,6 @@
     
 </template>
 <script>
-//import $ from 'jquery';
 import Xbox from "./Xbox.vue";
 import setChannel from "../libs/setChannel.js";
 export default {
@@ -117,7 +116,9 @@ export default {
   },
   watch: {},
   mounted() {
-    this.$refs.slideWrap.scrollTo(this.navs[this.nav].slide, 0);
+    if (status === "home") {
+      this.$refs.slideWrap.scrollTo(this.navs[this.nav].slide, 0);
+    }
     this.setChannel("nav");
   },
   components: {
