@@ -52,7 +52,10 @@ export default {
       let page = this.page;
       this.isLoading = true;
       this.$axios
-        .get("/api/container/getIndex", {
+        // 发布测试用 
+        .get("./getIndex.json", {
+        // 开发用
+        //.get("/api/container/getIndex", {
           params: {
             containerid,
             openApp: 0,
